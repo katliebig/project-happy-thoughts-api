@@ -1,6 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 import mongoose from 'mongoose'
+import listEndpoints from 'express-list-endpoints'
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/happyThoughts"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -13,7 +14,7 @@ mongoose.Promise = Promise
 const port = process.env.PORT || 8080
 const app = express()
 
-const thoughtSchema = new mongoose.Schema ({
+const thoughtSchema = new mongoose.Schema({
   message: {
     type: String,
     minlength: 5,
@@ -29,12 +30,11 @@ const thoughtSchema = new mongoose.Schema ({
   },
   userName: {
     type: String,
-    default: "Anonymous",
-    match: /\S/
+    default: "Anonymous"
   }
 })
 
-const Thought = mongoose.model ("Thought", thoughtSchema)
+const Thought = mongoose.model("Thought", thoughtSchema)
 
 // Add middlewares to enable cors and json body parsing
 app.use(cors())
@@ -42,7 +42,7 @@ app.use(express.json())
 
 // Start defining your routes here
 app.get('/', (req, res) => {
-  res.send('Hello world')
+  res.send(listEndpoints(app))
 })
 
 app.get("/thoughts", async (req, res) => {
@@ -56,19 +56,19 @@ app.get("/thoughts", async (req, res) => {
     .sort({
       createdAt: "desc"
     })
-  res.json({thoughts, amountOfThoughts})
+  res.json({ thoughts, amountOfThoughts })
 })
 
 app.post("/thoughts", async (req, res) => {
   try {
     const { message, userName } = req.body
-    const newThought = await new Thought({message, userName}).save()
+    const newThought = await new Thought({ message, userName }).save()
     res.json(newThought)
   } catch (error) {
     if (error.name === "ValidationError") {
-      res.status(400).json({error: "The thought should have a length between 5 and 140 characters"})
+      res.status(400).json({ error: "The thought should have a length between 5 and 140 characters" })
     } else {
-      res.status(400).json({error: "Something went wrong"})
+      res.status(400).json({ error: "Something went wrong" })
     }
   }
 })
@@ -95,8 +95,8 @@ app.post("/thoughts/:id/like", async (req, res) => {
       res.status(404).json({ message: 'Not found' })
     }
   } catch (error) {
-  res.status(404).json({error: "Thought not found"})
-}
+    res.status(404).json({ error: "Thought not found" })
+  }
 })
 
 // Start the server
