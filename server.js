@@ -92,10 +92,10 @@ app.post("/thoughts/:id/like", async (req, res) => {
     if (updatedThought) {
       res.json(updatedThought);
     } else {
-      res.status(404).json({ message: 'Not found' })
+      res.status(404).json({ error: "Thought not found" })
     }
   } catch (error) {
-    res.status(404).json({ error: "Thought not found" })
+    res.status(400).json({ error: "Something went wrong" })
   }
 })
 
