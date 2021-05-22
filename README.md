@@ -1,13 +1,13 @@
 # Project Happy Thoughts API
 
-Replace this readme with your own information about your project.
-
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+The goal of this project was to practice using POST requests and storing and updating data in a database. This was a pair-programming project between Erika Andersson Porath and Katharina Liebig.
 
 ## The problem
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+We started writing each endpoint and testing it by using Postman. Then we added the username functionality which required changes in both the backend and the frontend. After getting that to work we implemented infinite scrolling by using a react package. We ran into some problems because of the poor documentation. We eventually managed to solve those by troubleshooting every step and component on its own.
 
 ## View it live
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+Backend: https://hearts-happy-thoughts-api.herokuapp.com/thoughts
+
+Frontend: https://hearts-project-happy-thoughts.netlify.app/

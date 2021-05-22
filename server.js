@@ -47,7 +47,7 @@ app.get('/', (req, res) => {
 
 app.get("/thoughts", async (req, res) => {
   const page = Math.max(0, req.query.page)
-  const perPage = 5
+  const perPage = 10
   const amountOfThoughts = await Thought.estimatedDocumentCount()
 
   const thoughts = await Thought.find()
